@@ -1,0 +1,11 @@
+{
+  "registry-mirrors": [
+    "https://mirror.gcr.io",
+    "https://registry-1.docker.io"
+  ],
+  "log-driver": "json-file",
+  "log-opts": {
+    "max-size": "10m",
+    "max-file": "3"
+  }
+}

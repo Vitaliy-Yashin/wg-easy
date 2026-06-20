@@ -1,0 +1,9 @@
+---
+- name: Configure Wireguard
+  hosts: local
+  become: true
+  roles:
+    - sysctl
+    - docker_install
+    - wireguard
+    - iptables

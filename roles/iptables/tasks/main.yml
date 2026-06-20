@@ -1,0 +1,35 @@
+- name: Install utils
+  ansible.builtin.apt:
+    update_cache: yes
+    name:
+      - iptables
+      - iptables-persistent
+    state: present  
+    force: true
+- name: Allow 51821 port by only using VPN
+  ansible.builtin.iptables:
+    chain: DOCKER-USER
+    state: present
+    action: insert
+    destination: "192.168.0.2" 
+    rule_num: "1"
+    protocol: tcp
+    destination_port: "51821"
+    jump: ACCEPT
+
+- name: Deny any traffic to 51821 port
+  ansible.builtin.iptables:
+    chain: DOCKER-USER
+    state: present
+    action: insert
+    rule_num: "2"
+    protocol: tcp
+    destination_port: "51821"
+    jump: DROP   
+
+
+- name: Save rules
+  ansible.builtin.shell:
+    cmd: iptables-save > /etc/iptables/rules.v4
+    executable: /bin/bash
+
