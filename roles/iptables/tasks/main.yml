@@ -11,10 +11,10 @@
     chain: DOCKER-USER
     state: present
     action: insert
-    destination: "192.168.0.2" 
+    destination: "{{ destination_ip: }}" 
     rule_num: "1"
     protocol: tcp
-    destination_port: "51821"
+    destination_port: "{{ destination_port }}"
     jump: ACCEPT
 
 - name: Deny any traffic to 51821 port
@@ -24,7 +24,7 @@
     action: insert
     rule_num: "2"
     protocol: tcp
-    destination_port: "51821"
+    destination_port: "{{ destination_port }}"
     jump: DROP   
 
 
